@@ -9,12 +9,12 @@ This bot can also be used for personal reminders as well, by private messaging t
 
 
 Features:
-Set reminders
-Set repeated reminders
-View all reminders set
-Delete a reminder set
-Delete all reminders set
-Receive reminders via message from the bot in the group chat or personal chat with the bot 
+- Set reminders
+- Set repeated reminders
+- View all reminders set
+- Delete a reminder set
+- Delete all reminders set
+- Receive reminders via message from the bot in the group chat or personal chat with the bot 
 
 V1.0 
 For any queries or feedback, please contact @t3dted on telegram
