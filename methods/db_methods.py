@@ -1,7 +1,7 @@
 import pymongo
 from pymongo import MongoClient
 import ssl
-import pytz, datetime
+import pytz, datetime, calendar
 from methods import sensitive
 
 timezone = pytz.timezone('Asia/Singapore')
@@ -89,15 +89,22 @@ def insert_into_db(chat_id, date, todo , date_to_check, repeat):
         db.insert_one(to_add)
     update_and_sort_db(chat_id, date_to_check)
 
-def retrieve_reminders_from_db(chat_id):
+def retrieve_reminders_from_db(chat_id, date_to_check):
     reminder_list = []
     if check_if_user_exist(chat_id):
         find = db.find_one({'_id': chat_id})
         for reminder in find['data']:
+            set_date = str(calendar.day_name[reminder['date'].weekday()]).upper()
+
+            if reminder['date'].day == date_to_check.day:
+                set_date = "TODAY"
+            elif date_to_check.day + 1 == reminder['date'].day:
+                set_date = 'TOMORROW'
+
             if reminder['repeat'] != None:
-                reminder_list.append(str(reminder['list_id']) + '. ' + "<b>" + reminder['todo'] + "</b>" + ' on ' + str(reminder['date']) + '\nrepeated(in): ' + str(reminder['repeat']).upper())
+                reminder_list.append(str(reminder['list_id']) + '. ' + "<b>" + reminder['todo'] + "</b>" + ', ' + set_date + ' ' + str(reminder['date'])   + '\nrepeated(in): ' + str(reminder['repeat']).upper())
             else:
-                reminder_list.append(str(reminder['list_id']) + '. ' + "<b>" + reminder['todo'] + "</b>" + ' on ' + str(reminder['date'] ))
+                reminder_list.append(str(reminder['list_id']) + '. ' + "<b>" + reminder['todo'] + "</b>" + ', ' + set_date + ' ' + str(reminder['date']))
         return reminder_list
     else:
         return None

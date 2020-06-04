@@ -10,7 +10,7 @@ TOKEN = actual_telegram_token #actualbot
 
 bot = telebot.TeleBot(TOKEN)
 URL = "https://telegram-bot-setreminderbot.herokuapp.com/"
-# NGROK_URL = test_ngrok
+# URL = test_ngrok
 
 utc = pytz.utc
 timezone = pytz.timezone('Asia/Singapore')
@@ -107,15 +107,17 @@ def remove_reminder(message):
             bot.send_message(chat_id, 'Invalid Index, Please try again')
         elif resp == 'Success':
             bot.send_message(chat_id, 'Successfully removed reminder')
-            # reminders = logic.retrieve_reminder_list(chat_id, date_time)
-            # if reminders == None:
-            #     bot.send_message(chat_id, default_messages.no_reminders)
-            # else:
-            #     bot.send_message(chat_id, reminders, parse_mode='html')
         elif resp == 'all':
             bot.send_message(chat_id, 'Successfully removed all reminders')
         else:
             bot.send_message(chat_id, 'Invalid Index, Please try again')
+
+@bot.message_handler(commands=['goodbot', 'goodbot@SetReminderBot', 'goodbot@tedstester_bot'])
+def send_thank_you(message):
+    chat_id = message.chat.id
+    bot.reply_to(message, default_messages.goodbot)
+    bot.send_animation(chat_id, 'https://media.giphy.com/media/yFK1Kfe8cRwGY/giphy.gif')
+# CgACAgQAAxkBAAEGVhZe2GZIoFfpE5AuS9eeY8Bx-TbcXgAC3J4AAmEeZAfFmGulwak_HRoE
 
 
 @app.route('/' + TOKEN, methods=['POST'])
