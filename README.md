@@ -1,5 +1,5 @@
 # SetReminderBot
-A Telegram Bot that allows telegram users to set reminders for their personal use or for group chats
+A Telegram Bot that allows telegram users to set one-lined message reminders for their personal use or for group chats
 
 Telegram bot username: @SetReminderBot
 
